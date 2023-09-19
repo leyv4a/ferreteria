@@ -1,0 +1,31 @@
+Modelo Relacional caso Ferretería
+
+Tabla producto:
+-	productoID (PK, int): Llave Primaria, el código identificador del producto.
+-	nombreProducto (varchar (50)): Nombre del producto 
+-	precio (decimal (10,2)): Precio monetario del producto.
+-	detalles (varchar (150)): Descripción breve del producto.
+-	iva (decimal(5,2)): Impuesto al valor agregado del producto.
+-	categoriaID (FK, int): Llave foránea, código de la categoría del producto.
+Tabla categoría:
+-	categoriaID (PK, int): Llave Primaria, código identificador de la categoría del producto.
+-	nombreCategoria (varchar (50)): Nombre de la categoría del producto.
+Tabla cliente:
+-	clienteID (PK, int): Llave Primaria, código identificador del cliente.
+-	nombreCliente (varchar (70)): Nombre completo del cliente.
+-	Email (varchar (50)): Correo Electrónico del cliente.
+-	contrasena (varchar (25)): Contraseña del cliente.
+-	saldo (decimal (10,2)): Saldo actual del cliente.
+Tabla carritodecompras:
+-	carritoID (PK, int): Llave primaria, codigo identificador del carrito de compras.
+-	clienteID (FK, int): Llave Foránea, codigo identificador del cliente.
+Tabla detallecarrito:
+-	detalleID (PK, int): Llave primaria, codigo identificador de los detalles de carrito.
+-	carritoID (FK, int): Llave Foránea, codigo identificador del carrito de compras.
+-	productoID (FK, int): Llave Foránea, codigo identificador del producto.
+-	cantidad (int): Cantidad de cada producto en el carrito de compra.
+Tabla compra: 
+-	compraID (PK, int): Llave primaria, codigo identificador de la compra.
+-	fechaCompra (DATETIME): Fecha de la compra del producto.
+-	ClienteID (FK, int): Llave Foránea, codigo identificador del cliente.
+-	estado (varchar (20)): estado de la compra.
