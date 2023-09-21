@@ -19,6 +19,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -41,6 +42,7 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(900, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pngFerreteria.setBackground(new java.awt.Color(255, 153, 51));
@@ -153,6 +155,9 @@ public class Login extends javax.swing.JFrame {
                     if (cliente != null) {
                         // Si se autentifica correctamente abrir las otras ventanas
                         JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+                        this.setVisible(false);
+                        FormProductos productos = new FormProductos();
+                        productos.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Verifica los datos");
                     }
