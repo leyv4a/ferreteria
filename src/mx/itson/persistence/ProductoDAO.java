@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.itson.domain.Categoria;
 import mx.itson.domain.Producto;
+import mx.itson.services.CategoriaService;
 
 /**
  *
@@ -66,7 +67,7 @@ public class ProductoDAO extends DAO {
              
                 int categoriaID = resultado.getInt("categoriaID");
                 String nombreCategoria = resultado.getString("nombreCategoria");
-                Categoria categoria = new Categoria(categoriaID, nombreCategoria);
+                Categoria categoria = new Categoria(nombreCategoria);
 
                 Producto producto = new Producto(productoID, nombreProducto, precio, detalles, categoria);
                 productos.add(producto);
@@ -103,10 +104,10 @@ public class ProductoDAO extends DAO {
                 BigDecimal iva = resultado.getBigDecimal("iva");
                 int categoriaID = resultado.getInt("categoriaID");
 
-                // Hacer motodo para obtener categoria por id
-//                Categoria categoria = obtenerCategoriaPorID(categoriaID);
-
-//                producto = new Producto(id, nombreProducto, precio, detalles, iva, categoria);
+                //Hacer motodo para obtener categoria por id
+                CategoriaService CategoriaS = new CategoriaService();
+                Categoria categoria = CategoriaS.obtenerCategoriaPorID(categoriaID);
+                producto = new Producto(id, nombreProducto, precio, detalles, categoria);
             }
         } finally {
             desconectarDB();
