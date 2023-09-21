@@ -6,7 +6,7 @@ package mx.itson.domain;
  * @author gabri
  */
 public class DetalleCarrito {
-    
+
     private int detalleID;
     private CarritoDeCompras carrito;
     private Producto producto;

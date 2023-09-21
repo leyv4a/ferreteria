@@ -170,7 +170,7 @@
                       <Color blue="1d" green="9a" red="dc" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="FERRETERIA"/>
+                    <Property name="text" type="java.lang.String" value="RATCHET FERRETERIA"/>
                     <Property name="verticalTextPosition" type="int" value="1"/>
                   </Properties>
                 </Component>
@@ -178,12 +178,12 @@
             </Container>
             <Component class="javax.swing.JTextField" name="txtCorreo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Correo"/>
+                <Property name="text" type="java.lang.String" value="JJ@yahoo.com"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="pswPassword">
               <Properties>
-                <Property name="text" type="java.lang.String" value="pass"/>
+                <Property name="text" type="java.lang.String" value="password1"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">

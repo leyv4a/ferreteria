@@ -7,11 +7,15 @@ package mx.itson.ui;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import mx.itson.domain.CarritoDeCompras;
 import mx.itson.domain.Cliente;
+import mx.itson.domain.DetalleCarrito;
 import mx.itson.domain.Producto;
 import mx.itson.services.CarritoService;
 import mx.itson.services.ClienteService;
+import mx.itson.services.DetalleCarritoService;
 import mx.itson.services.ProductoService;
 
 /**
@@ -19,19 +23,26 @@ import mx.itson.services.ProductoService;
  * @author gabri
  */
 public class FormProductos extends javax.swing.JFrame {
-private String emailRecibido;
-    public void setEmail(String email){
-            this.emailRecibido = email;
-        }
+    
+//    private String emailRecibido;
+    
+//    public void setEmail(String email){
+//            this.emailRecibido = email;
+//        }
+    
+//    public String getEmail(){
+//        return emailRecibido;
+//    }
     
     /**
      * Creates new form FormProductos
      */
     public FormProductos() throws Exception {
         ClienteService clienteS = new ClienteService();
-        Cliente cliente = clienteS.buscarClientePorEmail(emailRecibido);
+//        Cliente cliente = clienteS.buscarClientePorEmail(emailRecibido);
         CarritoService carritoS = new CarritoService();
-        carritoS.crearCarritoDeCompras(cliente.getClienteID());
+//        carritoS.crearCarritoDeCompras(cliente.getClienteID());s
+       
         
         
                         
@@ -67,27 +78,46 @@ private String emailRecibido;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaProductos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        txtCantidad = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel2.setBackground(new java.awt.Color(18, 44, 50));
+
+        jLabel1.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(220, 154, 29));
+        jLabel1.setText("RATCHET FERRETERIA");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mx/itson/assets/cart.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 60));
@@ -107,18 +137,27 @@ private String emailRecibido;
         ));
         jScrollPane1.setViewportView(tablaProductos);
 
-        jButton1.setText("Agregar");
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        txtCantidad.setText("0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(208, 208, 208)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addGap(196, 196, 196)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAgregar)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(76, 76, 76))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,8 +166,10 @@ private String emailRecibido;
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jButton1)
+                .addGap(73, 73, 73)
+                .addComponent(btnAgregar)
+                .addGap(18, 18, 18)
+                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -147,6 +188,49 @@ private String emailRecibido;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        int seleccion = tablaProductos.getSelectedRow();
+        if (seleccion != -1) {
+            int idProducto = (int) tablaProductos.getValueAt(seleccion,0);
+       
+        int cantidad;
+        try {
+            cantidad = Integer.parseInt(txtCantidad.getText());
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "La cantidad ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+         ClienteService clienteService = new ClienteService();
+            try {
+//                Cliente cliente =  clienteService.buscarClientePorEmail(emailRecibido);
+                
+                DetalleCarrito detalleCarrito =  new DetalleCarrito();
+                //agregamos cantidad
+                detalleCarrito.setCantidad(cantidad);
+                //agregamos id carrito
+                CarritoDeCompras carrito = new CarritoDeCompras();
+                detalleCarrito.setCarrito(carrito);
+                //agregamos id producto
+                Producto producto = new Producto();
+                detalleCarrito.setProducto(producto);
+                
+            } catch (Exception ex) {
+                Logger.getLogger(FormProductos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          
+       
+    
+      
+      
+  
+         }else{
+            JOptionPane.showMessageDialog(null, "Selecciona un producto de la tabla.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,11 +273,14 @@ private String emailRecibido;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaProductos;
+    private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 }

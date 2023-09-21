@@ -70,7 +70,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Miriam Libre", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(220, 154, 29));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("FERRETERIA");
+        jLabel2.setText("RATCHET FERRETERIA");
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout pnlLoginHeaderLayout = new javax.swing.GroupLayout(pnlLoginHeader);
@@ -84,9 +84,9 @@ public class Login extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        txtCorreo.setText("Correo");
+        txtCorreo.setText("JJ@yahoo.com");
 
-        pswPassword.setText("pass");
+        pswPassword.setText("password1");
 
         jButton1.setBackground(new java.awt.Color(18, 44, 50));
         jButton1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
@@ -159,8 +159,8 @@ public class Login extends javax.swing.JFrame {
                     if (cliente != null) {
                         // Si se autentifica correctamente abrir las otras ventanas
                         JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-                        FormProductos formP = new FormProductos();
-                        formP.setEmail(email);
+//                        FormProductos formP = new FormProductos();
+//                        formP.setEmail(email);
                         this.setVisible(false);
                         FormProductos productos = new FormProductos();
                         productos.setVisible(true);
