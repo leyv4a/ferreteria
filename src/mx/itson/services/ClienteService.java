@@ -1,5 +1,6 @@
 package mx.itson.services;
 
+import java.util.Collection;
 import mx.itson.domain.Cliente;
 import mx.itson.persistence.ClienteDAO;
 
@@ -14,7 +15,7 @@ public class ClienteService {
     public ClienteService() {
         this.dao = new ClienteDAO();
     }
-
+//CAMIBAR ESTE MOTODO PARA QUE RECIBA UN OBJETO CLIENTE YA GENERADO Y NO SE GENERE EN EL METODO
     public void crearCliente(String nombreCliente, String email, String contrasena) throws Exception {
         try {
             //Inicia la validacion
@@ -94,6 +95,10 @@ public class ClienteService {
         } catch (Exception e) {
             throw e;
         }
+    }
+    
+    public Collection<Cliente> listarClientes() throws Exception{
+        return dao.listarClientes();
     }
 
     public Cliente consultarSaldo(String email) throws Exception {

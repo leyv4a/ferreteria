@@ -16,12 +16,11 @@ public class Producto {
     private Categoria categoria;
 
     
-    public Producto(int productoId, String nombreProducto, BigDecimal precio, String detalles, BigDecimal iva, Categoria categoria) {
+    public Producto(int productoId, String nombreProducto, BigDecimal precio, String detalles, Categoria categoria) {
         this.productoId = productoId;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.detalles = detalles;
-        this.iva = iva;
         this.categoria = categoria;
     }
 

@@ -51,7 +51,7 @@ public abstract class DAO {
             if (stm != null) {
                 stm.close();
             }
-            if (conn != null) {
+            if (conn != null) { 
                 conn.close();
             }
             if (pst != null) {

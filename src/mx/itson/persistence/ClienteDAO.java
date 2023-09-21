@@ -133,7 +133,6 @@ public final class ClienteDAO extends DAO {
             desconectarDB();
             return clientes;
         } catch (Exception e) {
-            e.printStackTrace();
             desconectarDB();
             throw new Exception("Error del sistema");
         }
