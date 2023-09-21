@@ -103,4 +103,10 @@ public class Cliente {
         this.saldo = saldo;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente{" + "clienteID=" + clienteID + ", nombreCliente=" + nombreCliente + ", email=" + email + ", saldo=" + saldo + '}';
+    }
+
+    
 }

@@ -33,6 +33,7 @@ public final class ClienteDAO extends DAO {
             throw e;
         }
     }
+
     /*
     ** Creamos un metodo para modificar clientes
      */
@@ -42,14 +43,15 @@ public final class ClienteDAO extends DAO {
                 throw new Exception("Debe indicar el cliente que desea modificar");
             }
             String query = "UPDATE cliente SET contrasena = ?, nombreCliente = ?WHERE email = ? ";
+            conectarDB();
             pst = conn.prepareStatement(query);
-            pst.setString(1,cliente.getContrasena());
-            pst.setString(2,cliente.getNombreCliente());
+            pst.setString(1, cliente.getContrasena());
+            pst.setString(2, cliente.getNombreCliente());
             pst.setString(3, cliente.getEmail());
             pst.executeUpdate();
-            
+
             desconectarDB();
-                   
+
 //          
         } catch (Exception e) {
             throw e;
@@ -65,10 +67,11 @@ public final class ClienteDAO extends DAO {
                 throw new Exception("Debe indicar el cliente que desea modificar");
             }
             String query = "DELETE FROM cliente WHERE email = ?";
-          pst = conn.prepareStatement(query);
-          pst.setString(1,cliente.getEmail());
-          pst.executeUpdate();
-          desconectarDB();
+            conectarDB();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, cliente.getEmail());
+            pst.executeUpdate();
+            desconectarDB();
         } catch (Exception e) {
             throw e;
         }
@@ -80,7 +83,8 @@ public final class ClienteDAO extends DAO {
     public Cliente buscarClientePorEmail(String email) throws Exception {
         try {
 
-            String query = "SELECT * FROM clientes WHERE email = ?";
+            String query = "SELECT * FROM cliente WHERE email = ?";
+            conectarDB();
             pst = conn.prepareStatement(query);
             pst.setString(1, email);
             resultado = pst.executeQuery();
@@ -93,6 +97,7 @@ public final class ClienteDAO extends DAO {
                 cliente.setEmail(resultado.getString(3));
                 cliente.setContrasena(resultado.getString(4));
                 cliente.setSaldo(resultado.getBigDecimal(5));
+                System.out.println(cliente.getNombreCliente()+" "+cliente.getEmail()+" "+cliente.getSaldo());
             }
             desconectarDB();
             return cliente;
@@ -123,7 +128,7 @@ public final class ClienteDAO extends DAO {
                 System.out.println(cliente.getNombreCliente());
                 System.out.println(cliente.getEmail());
                 System.out.println(cliente.getSaldo());
-                       
+
             }
             desconectarDB();
             return clientes;
@@ -133,10 +138,58 @@ public final class ClienteDAO extends DAO {
             throw new Exception("Error del sistema");
         }
     }
-  
-    //agregar metodo para consultar saldo
+
+    //Creamos un metodo para consultar saldo
+    public Cliente consultarSaldo(String email) throws Exception {
+        try {
+            if (email.isEmpty()) {
+                throw new Exception("Debe indicar el email del cliente que desea consultar saldo");
+            }
+            String query = "SELECT saldo FROM cliente WHERE email = ?";
+            conectarDB();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, email);
+            Cliente cliente = new Cliente();
+            resultado = pst.executeQuery();
+            if (resultado.next()) {
+                cliente.setSaldo(resultado.getBigDecimal("saldo"));
+                System.out.println(cliente.getSaldo());
+            }
+            return cliente;
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
     
     //agregar metodo para login de cliente
-    
+    public Cliente autentificacion(String email, String contrasena) throws Exception{
+        try { 
+           String query = "SELECT * FROM cliente WHERE email = ? and contrasena = ?";
+            conectarDB();
+            pst= conn.prepareStatement(query);
+            pst.setString(1,email);
+            pst.setString(2,contrasena); 
+            
+            resultado = pst.executeQuery();
+
+            Cliente cliente = null;
+
+            while (resultado.next()) {
+                cliente = new Cliente();
+                cliente.setClienteID(resultado.getInt("clienteID"));
+                cliente.setNombreCliente(resultado.getString("nombreCliente"));
+                cliente.setEmail(resultado.getString("email"));
+                cliente.setContrasena(resultado.getString("contrasena"));
+            }
+
+           desconectarDB();
+
+            return cliente;
+        } catch (Exception e) {
+            throw e;
+        }
+        
+    }
     //agregar metodo para registrar cliente
 }

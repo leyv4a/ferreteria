@@ -16,7 +16,12 @@ public class mainTEST {
         ClienteService clienteServices = new ClienteService();
         
         try {
-            clienteServices.crearCliente("Gsabriel","gabriel@leyv4a.com","12222222222");
+//            clienteServices.crearCliente("Gsabriel","gabriel@leyv4a.scom","12222222222");
+//clienteServices.buscarClientePorEmail("gabriel@leyv4a.scom");
+//clienteServices.modificarCliente("gabriel@leyv4a.scom", "5551123123", "Gabirle2");
+//clienteServices.consultarSaldo("JJ@yahoo.com");
+clienteServices.autentificacion("JJ@yahooo.com", "password1");
+          
         } catch (Exception e) {
             throw e;
         }
