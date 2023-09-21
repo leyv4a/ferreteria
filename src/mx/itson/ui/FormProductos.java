@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import mx.itson.domain.Cliente;
 import mx.itson.domain.Producto;
+import mx.itson.services.CarritoService;
+import mx.itson.services.ClienteService;
 import mx.itson.services.ProductoService;
 
 /**
@@ -16,11 +19,22 @@ import mx.itson.services.ProductoService;
  * @author gabri
  */
 public class FormProductos extends javax.swing.JFrame {
-
+private String emailRecibido;
+    public void setEmail(String email){
+            this.emailRecibido = email;
+        }
+    
     /**
      * Creates new form FormProductos
      */
     public FormProductos() throws Exception {
+        ClienteService clienteS = new ClienteService();
+        Cliente cliente = clienteS.buscarClientePorEmail(emailRecibido);
+        CarritoService carritoS = new CarritoService();
+        carritoS.crearCarritoDeCompras(cliente.getClienteID());
+        
+        
+                        
         Login login = new Login();
         setLocationRelativeTo(null);
         initComponents();

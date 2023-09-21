@@ -6,6 +6,7 @@ package mx.itson.ui;
 
 import javax.swing.JOptionPane;
 import mx.itson.domain.Cliente;
+import mx.itson.services.CarritoService;
 import mx.itson.services.ClienteService;
 
 /**
@@ -14,12 +15,15 @@ import mx.itson.services.ClienteService;
  */
 public class Login extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        String email = txtCorreo.getText();
+        
     }
 
     /**
@@ -155,6 +159,8 @@ public class Login extends javax.swing.JFrame {
                     if (cliente != null) {
                         // Si se autentifica correctamente abrir las otras ventanas
                         JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+                        FormProductos formP = new FormProductos();
+                        formP.setEmail(email);
                         this.setVisible(false);
                         FormProductos productos = new FormProductos();
                         productos.setVisible(true);
