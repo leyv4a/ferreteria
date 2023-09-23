@@ -37,7 +37,7 @@ public class CompraService {
             throw e;
         }
     }
-    public boolean verificarSaldo(Cliente cliente, Double total){
+    public boolean verificarSaldo(Cliente cliente, BigDecimal total){
        return compraDAO.verificarSaldo(cliente, total);
     }
 }

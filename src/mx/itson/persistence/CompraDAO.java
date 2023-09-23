@@ -57,7 +57,7 @@ public class CompraDAO extends DAO {
         return compras;
     }
 
-    public boolean verificarSaldo(Cliente cliente, Double total) {
+    public boolean verificarSaldo(Cliente cliente, BigDecimal total) {
 //        try {
 //            
         Double uno = cliente.getSaldo().doubleValue();
@@ -72,6 +72,10 @@ public class CompraDAO extends DAO {
 //        }
 //        
 //        return false;
-        return uno > total;
+        int resultado = cliente.getSaldo().compareTo(total);
+        if (resultado > 0) {
+            return true;
+        }
+        return false;
     }
 }

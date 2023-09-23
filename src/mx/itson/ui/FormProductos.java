@@ -348,7 +348,7 @@ public class FormProductos extends javax.swing.JFrame {
                                 suma += ((Number) valor).intValue();
                             }
                         }
-                        txtTotal.setText("Total = " + suma);
+                        txtTotal.setText(""+suma);
 
                         if (detalleCarrito != null) {
                             JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
@@ -425,14 +425,15 @@ public class FormProductos extends javax.swing.JFrame {
             Cliente cliente = clienteService.buscarClientePorEmail(this.getEmail());
             Compra compra = new Compra(cliente);
             CompraService cs = new CompraService();
-            //validamos si hay productos
-//            if (tblDetallesCarrito.getRowCount() > 0) {
-//                //validamos si cuenta con el saldo suficiente
-                Double total = Double.parseDouble(txtTotal.getText());
-                boolean confirmar;
-                confirmar = cs.verificarSaldo(cliente, total);
+//            validamos si hay productos
+            if (tblDetallesCarrito.getRowCount() > 0) {
+                //validamos si cuenta con el saldo suficiente
+                    String texto = txtTotal.getText()+".00";
+                  BigDecimal total = new BigDecimal(texto);
+                  boolean confirmar = cs.verificarSaldo(cliente, total);
+//                  int comparacion = cliente.getSaldo().compareTo(total);
                 if (confirmar) {
-                    if (JOptionPane.showConfirmDialog(null, "Desea confirmar la compra?") == 1) {
+                    if (JOptionPane.showConfirmDialog(null, "Desea confirmar la compra?") == 0) {
                         //agregamos la compra
                         compraService.agregarCompra(compra);
                         //borramos detalle carrito y borramos la tabla
@@ -451,17 +452,18 @@ public class FormProductos extends javax.swing.JFrame {
                             tableDetalles.addRow(new Object[]{detalleCarrito1.getNombreProducto(), detalleCarrito1.getCantidad(), detalleCarrito1.getPrecio()});
                         }
                         txtTotal.setText("Total = 0");
+                        JOptionPane.showMessageDialog(null, "Gracias por su compra!");
                     }
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Saldo insuficiente");
                 }
-//            }else{
-//                JOptionPane.showMessageDialog(null, "La tabla esta vacia");
-//            }
+            }else{
+                JOptionPane.showMessageDialog(null, "La tabla esta vacia");
+            }
 
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "AA");
         }
 
 
