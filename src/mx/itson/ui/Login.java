@@ -4,6 +4,8 @@
  */
 package mx.itson.ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import mx.itson.domain.Cliente;
 import mx.itson.services.CarritoService;
@@ -14,7 +16,7 @@ import mx.itson.services.ClienteService;
  * @author gabri
  */
 public class Login extends javax.swing.JFrame {
-
+    
     
     /**
      * Creates new form Login
@@ -22,9 +24,11 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
-        String email = txtCorreo.getText();
+       
         
+
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,36 +151,44 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         // Aquí debes agregar la lógica de autenticación
-                String email = txtCorreo.getText();
-                String password = new String(pswPassword.getPassword());
+        // Aquí esta la lógica de autenticación
+        String email = txtCorreo.getText();
+        String password = new String(pswPassword.getPassword());
+        FormProductos fp;
+    
+        
+        try {
+            // Llamar al método de autenticación
+            ClienteService clienteService = new ClienteService();
+            Cliente cliente = clienteService.autentificacion(email, password);
+            
+            
+        if (cliente != null) {
+            // Si se autentifica correctamente abrir las otras ventanas
+            JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+            this.setVisible(false);
+            FormProductos productos = new FormProductos();
+            productos.setEmail(email);
+            productos.setLocationRelativeTo(null);
+            productos.setVisible(true);
+           
+        } else {
+            JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Verifica los datos");
+        }
+    }
+    catch (Exception ex
 
-                try {
-                    // Llamar al método de autenticación
-                    ClienteService clienteService = new ClienteService();
-                    Cliente cliente = clienteService.autentificacion(email, password);
-
-                    if (cliente != null) {
-                        // Si se autentifica correctamente abrir las otras ventanas
-                        JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-//                        FormProductos formP = new FormProductos();
-//                        formP.setEmail(email);
-                        this.setVisible(false);
-                        FormProductos productos = new FormProductos();
-                        productos.setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Verifica los datos");
-                    }
-                } catch (Exception ex) {
+    
+        ) {
 //                  throw ex;
                     JOptionPane.showMessageDialog(null, "Fallo al iniciar sesión.");
-                }
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -187,16 +199,28 @@ public class Login extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Login.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Login.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Login.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

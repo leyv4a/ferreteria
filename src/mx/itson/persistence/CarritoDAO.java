@@ -12,29 +12,38 @@ import mx.itson.domain.CarritoDeCompras;
  * @author gabri
  */
 public class CarritoDAO extends DAO {
-    
-    public void generarCarrito(int clienteID) throws Exception{
+
+    public void generarCarrito(int clienteID) throws Exception {
         conectarDB();
+//        CarritoDeCompras carrito = obtenerCarritoPorCliente(clienteID);
+//        if (carrito != null) {
+//            // El cliente ya tiene un carrito, lo retornamos
+//         return carrito;
+//        }else{
+            //El cliene no tiene carrito, creamos uno
         try {
-            String query ="INSERT INTO CarritoDeCompras (ClienteID) VALUES (?)";
-            pst= conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            String query1 = "INSERT INTO CarritoDeCompras (ClienteID) VALUES (?)";
+            pst = conn.prepareStatement(query1, PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setInt(1, clienteID);
             pst.executeUpdate();
-            
+
             //RECUPERAMOS EL ID DEL CARRITO
-            resultado= pst.getGeneratedKeys();
+            resultado = pst.getGeneratedKeys();
             if (resultado.next()) {
                 int CarritoID = resultado.getInt(1);
                 CarritoDeCompras carrito = new CarritoDeCompras();
                 carrito.setCarritoID(CarritoID);
             }
+
         } catch (Exception e) {
             throw e;
-        }finally{
+        } finally {
             desconectarDB();
         }
+//          return carrito;
+//        }
     }
-    
+
     public CarritoDeCompras obtenerCarritoPorCliente(int clienteID) throws Exception {
         CarritoDeCompras carrito = null;
         conectarDB();
@@ -45,7 +54,7 @@ public class CarritoDAO extends DAO {
             resultado = pst.executeQuery();
             if (resultado.next()) {
                 int carritoID = resultado.getInt("carritoID");
-                // Puedes crear una instancia de CarritoDeCompras y asignar el carritoID
+                // crear una instancia de CarritoDeCompras y asignar el carritoID
                 carrito = new CarritoDeCompras();
                 carrito.setCarritoID(carritoID);
             }

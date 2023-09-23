@@ -14,6 +14,13 @@ public class Compra {
     private String estado;
     private Cliente cliente;
 
+    public Compra(Cliente cliente) {
+//        this.compraID = compraID;
+//        this.fechaCompra = fechaCompra;
+//        this.estado = estado;
+        this.cliente = cliente;
+    }
+
     public Compra(int compraID, LocalDateTime fechaCompra, String estado, Cliente cliente) {
         this.compraID = compraID;
         this.fechaCompra = fechaCompra;
@@ -21,6 +28,7 @@ public class Compra {
         this.cliente = cliente;
     }
 
+    
     public Compra() {
     }
 

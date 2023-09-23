@@ -12,7 +12,7 @@ public class Producto {
     private String nombreProducto;
     private BigDecimal precio;
     private String detalles;
-    private BigDecimal iva;
+    private BigDecimal iva ;
     private Categoria categoria;
 
     

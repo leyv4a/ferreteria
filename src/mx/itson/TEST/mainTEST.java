@@ -7,10 +7,14 @@ package mx.itson.TEST;
 
 import java.math.BigDecimal;
 import java.util.List;
+import mx.itson.domain.CarritoDeCompras;
 import mx.itson.domain.Categoria;
+import mx.itson.domain.DetalleCarrito;
 import mx.itson.domain.Producto;
 import mx.itson.persistence.ProductoDAO;
+import mx.itson.services.CarritoService;
 import mx.itson.services.ClienteService;
+import mx.itson.services.DetalleCarritoService;
 import mx.itson.services.ProductoService;
 
 /**
@@ -19,11 +23,26 @@ import mx.itson.services.ProductoService;
  */
 public class mainTEST {
     public static void main(String[] args) throws Exception {
-     
-        ClienteService clienteServices = new ClienteService();
-        ProductoService productoServices = new ProductoService();
-        
+//        CarritoService cs = new CarritoService();
+//        cs.crearCarritoDeCompras(1);
+//        CarritoDeCompras cc = new CarritoDeCompras();
+//        cc = cs.obtenerCarritoPorCliente(11);
+//        
+//     
+//        ClienteService clienteServices = new ClienteService();
+//        ProductoService productoServices = new ProductoService();
+//        DetalleCarritoService Dc = new DetalleCarritoService();
+//        DetalleCarrito carritod= new DetalleCarrito(cc.getCarritoID(), 3, 2);
+//        Dc.agregarDetalleCarrito(carritod);
+//        
+            
         try {
+//            DetalleCarrito dt = new DetalleCarrito();
+//            dt.setCantidad(1);
+//            dt.setCarritoid(1);
+//            dt.setProductoid(2);
+            
+//            Dc.agregarDetalleCarrito(dt);
             //METODOS DE CLIENTE PROBADOS Y FUNCIONANDO
 //            clienteServices.crearCliente("Gsabriel","gabriel@leyv4a.scom","12222222222");
 //clienteServices.buscarClientePorEmail("gabriel@leyv4a.scom");
@@ -48,6 +67,10 @@ public class mainTEST {
 ////productoServices.eliminarProducto(Eliminar);
 //ProductoDAO pd = new ProductoDAO();
 //pd.obtenerProductoPorID(Eliminar);
+DetalleCarritoService dcs = new DetalleCarritoService();
+DetalleCarrito dc = new DetalleCarrito(2, 2, 2, "Jose", BigDecimal.ONE);
+dcs.listarDetallesPorCarritoId(1);
+
         } catch (Exception e) {
             throw e;
         }

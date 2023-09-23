@@ -4,6 +4,7 @@
  */
 package mx.itson.persistence;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,11 @@ public class CompraDAO extends DAO{
      public void agregarCompra(Compra compra) throws Exception {
         conectarDB();
         try {
-            String query = "INSERT INTO Compra (fechaCompra, estado, clienteID) VALUES (?, ?, ?)";
+            String query = "INSERT INTO Compra (fechaCompra, clienteID) VALUES (NOW(), ?)";
             pst = conn.prepareStatement(query);
-            pst.setObject(1, compra.getFechaCompra());
-            pst.setString(2, compra.getEstado());
-            pst.setInt(3, compra.getCliente().getClienteID());
+//            pst.setObject(1, compra.getFechaCompra());
+//          pst.setString(2, compra.getEstado());
+            pst.setInt(1, compra.getCliente().getClienteID());
             pst.executeUpdate();
         } catch (Exception e) {
             throw e;
@@ -52,5 +53,16 @@ public class CompraDAO extends DAO{
             desconectarDB();
         }
         return compras;
+    }
+    
+    public boolean verificarSaldo(Cliente cliente, Double total){
+        Double uno = cliente.getSaldo().doubleValue();
+        if (uno > total) {
+        return true;    
+        }else{
+            return false;
+        }
+        
+//       return cliente.getSaldo().compareTo(total) >=0;
     }
 }

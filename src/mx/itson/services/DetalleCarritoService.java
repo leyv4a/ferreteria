@@ -27,8 +27,15 @@ public class DetalleCarritoService {
     public List<DetalleCarrito> listarDetallesPorCarrito(CarritoDeCompras carrito) throws Exception {
         return dao.listarDetallesPorCarrito(carrito);
     }
+     public List<DetalleCarrito> listarDetallesPorCarritoId(int carritoid) throws Exception {
+        return dao.listarDetallesPorCarritoId(carritoid);
+    }
 
     public void eliminarDetalleCarrito(int detalleID) throws Exception {
         dao.eliminarDetalleCarrito(detalleID);
+    }
+    
+    public void eliminarDetalleCarritoPorId(int detalleid, int carritoid, int cantidad) throws Exception {
+        dao.eliminarDetalleCarritoPorId(detalleid, carritoid, cantidad);
     }
 }

@@ -97,7 +97,7 @@ public final class ClienteDAO extends DAO {
                 cliente.setEmail(resultado.getString(3));
                 cliente.setContrasena(resultado.getString(4));
                 cliente.setSaldo(resultado.getBigDecimal(5));
-                System.out.println(cliente.getNombreCliente()+" "+cliente.getEmail()+" "+cliente.getSaldo());
+//                System.out.println(cliente.getNombreCliente()+" "+cliente.getEmail()+" "+cliente.getSaldo());
             }
             desconectarDB();
             return cliente;
