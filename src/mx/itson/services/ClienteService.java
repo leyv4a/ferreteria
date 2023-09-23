@@ -115,6 +115,14 @@ public class ClienteService {
         }
 
     }
+    
+    public boolean agregarSaldo(Cliente cliente) throws Exception{
+        try {
+            return dao.agregarSaldo(cliente);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     public Cliente autentificacion(String email, String contrasena) throws Exception {
         try {

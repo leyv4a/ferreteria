@@ -161,8 +161,14 @@ public class Login extends javax.swing.JFrame {
             // Llamar al método de autenticación
             ClienteService clienteService = new ClienteService();
             Cliente cliente = clienteService.autentificacion(email, password);
-            
-            
+            String admin = "Admin";
+            if (cliente.getRol().equals(admin)) {
+                 JOptionPane.showMessageDialog(null, "Bievenido administrador.");
+                this.setVisible(false);
+                FormAdmin formAdmin = new FormAdmin();
+                formAdmin.setLocationRelativeTo(null);
+                formAdmin.setVisible(true);
+            }else{
         if (cliente != null) {
             // Si se autentifica correctamente abrir las otras ventanas
             JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
@@ -176,6 +182,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Verifica los datos");
         }
     }
+        }
     catch (Exception ex
 
     

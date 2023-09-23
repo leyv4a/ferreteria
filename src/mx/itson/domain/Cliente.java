@@ -18,6 +18,9 @@ public class Cliente {
     private String contrasena;
     private BigDecimal saldo;
 
+   
+    private String rol;
+
     
     
     public Cliente(int clienteID, String nombreCliente, String email, String contrasena, BigDecimal saldo) {
@@ -31,7 +34,13 @@ public class Cliente {
     public Cliente() {
     }
     
-    
+     public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
     
     /**
      * @return the clienteID

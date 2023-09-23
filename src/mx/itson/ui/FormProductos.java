@@ -4,13 +4,12 @@
  */
 package mx.itson.ui;
 
-import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
@@ -20,7 +19,6 @@ import mx.itson.domain.Cliente;
 import mx.itson.domain.Compra;
 import mx.itson.domain.DetalleCarrito;
 import mx.itson.domain.Producto;
-import mx.itson.persistence.ClienteDAO;
 import mx.itson.services.CarritoService;
 import mx.itson.services.ClienteService;
 import mx.itson.services.CompraService;
@@ -52,7 +50,6 @@ public class FormProductos extends javax.swing.JFrame {
         pnlDetalles = new JPanel();
 
         Login login = new Login();
-//        setLocationRelativeTo(null);
         initComponents();
         DefaultTableModel tableModel = new DefaultTableModel();
         tablaProductos.setModel(tableModel);
@@ -70,16 +67,9 @@ public class FormProductos extends javax.swing.JFrame {
         for (Producto producto : productos) {
             tableModel.addRow(new Object[]{producto.getProductoId(), producto.getNombreProducto(), producto.getDetalles(), producto.getCategoria().getNombreCategoria(), producto.getPrecio()});
         }
-        //le quitamos la visibilidad
+        //le quitamos la visibilidad al panel que contiene los detalles del carrito
         pnlDetalles.setVisible(false);
-
-//        DefaultTableModel tableDetalles = new DefaultTableModel();
-//        tblDetallesCarrito.setModel(tableDetalles);
-//        
-//        tableDetalles.addColumn("Producto");
-//        tableDetalles.addColumn("Cantidad");
-//        tableDetalles.addColumn("Precio");
-//        List<DetalleCarrito> detalleCarritos = detalleCarritoService.listarDetallesPorCarrito(carrito);
+        
     }
 
     /**
@@ -107,8 +97,13 @@ public class FormProductos extends javax.swing.JFrame {
         txtTotal = new javax.swing.JTextField();
         BorrarDetalleCompleto = new javax.swing.JButton();
         QuitarDetalle = new javax.swing.JButton();
+        txtSaldo = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(900, 600));
+        setMinimumSize(new java.awt.Dimension(900, 600));
+        setResizable(false);
 
         panelPrincipal.setBackground(new java.awt.Color(255, 102, 255));
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -220,24 +215,36 @@ public class FormProductos extends javax.swing.JFrame {
         });
         pnlDetalles.add(QuitarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 70, 20));
 
+        txtSaldo.setEnabled(false);
+
+        jButton2.setText("Ver saldo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(pnlDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(agregarProducto)))
+                        .addComponent(jButton2)
+                        .addGap(1, 1, 1)
+                        .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addComponent(pnlDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(agregarProducto))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -251,7 +258,11 @@ public class FormProductos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(57, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52))
         );
@@ -415,10 +426,11 @@ public class FormProductos extends javax.swing.JFrame {
             Compra compra = new Compra(cliente);
             CompraService cs = new CompraService();
             //validamos si hay productos
-            if (tblDetallesCarrito.getRowCount() > 0) {
-                //validamos si cuenta con el saldo suficiente
+//            if (tblDetallesCarrito.getRowCount() > 0) {
+//                //validamos si cuenta con el saldo suficiente
                 Double total = Double.parseDouble(txtTotal.getText());
-                boolean confirmar = cs.verificarSaldo(cliente, total);
+                boolean confirmar;
+                confirmar = cs.verificarSaldo(cliente, total);
                 if (confirmar) {
                     if (JOptionPane.showConfirmDialog(null, "Desea confirmar la compra?") == 1) {
                         //agregamos la compra
@@ -444,7 +456,9 @@ public class FormProductos extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Saldo insuficiente");
                 }
-            }
+//            }else{
+//                JOptionPane.showMessageDialog(null, "La tabla esta vacia");
+//            }
 
         } catch (Exception e) {
 
@@ -452,6 +466,17 @@ public class FormProductos extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnComprarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            
+        ClienteService clienteService = new ClienteService();
+       Cliente cliente = clienteService.buscarClientePorEmail(email);
+       txtSaldo.setText("Tu saldo es : "+cliente.getSaldo());
+       
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,6 +516,8 @@ public class FormProductos extends javax.swing.JFrame {
 
             }
         });
+       
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -499,6 +526,7 @@ public class FormProductos extends javax.swing.JFrame {
     private javax.swing.JButton agregarProducto;
     private javax.swing.JButton btnComprar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -509,6 +537,7 @@ public class FormProductos extends javax.swing.JFrame {
     private javax.swing.JSpinner spnCantidad;
     private javax.swing.JTable tablaProductos;
     private javax.swing.JTable tblDetallesCarrito;
+    private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

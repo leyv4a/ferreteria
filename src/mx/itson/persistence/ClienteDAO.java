@@ -1,5 +1,6 @@
 package mx.itson.persistence;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -160,6 +161,18 @@ public final class ClienteDAO extends DAO {
         }
 
     }
+    public boolean agregarSaldo(Cliente cliente) throws Exception{
+        try {
+            conectarDB();
+            String query = "UPDATE cliente SET saldo = ? WHERE clienteid = ?";
+            pst = conn.prepareStatement(query);
+            pst.setBigDecimal(1, cliente.getSaldo());
+            pst.setInt(2,cliente.getClienteID());
+            return pst.execute();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     
     //agregar metodo para login de cliente
     public Cliente autentificacion(String email, String contrasena) throws Exception{
@@ -180,6 +193,7 @@ public final class ClienteDAO extends DAO {
                 cliente.setNombreCliente(resultado.getString("nombreCliente"));
                 cliente.setEmail(resultado.getString("email"));
                 cliente.setContrasena(resultado.getString("contrasena"));
+                cliente.setRol(resultado.getString("rol"));
             }
 
            desconectarDB();

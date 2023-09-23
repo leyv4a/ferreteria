@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import mx.itson.domain.Cliente;
 import mx.itson.domain.Compra;
 
@@ -15,8 +16,9 @@ import mx.itson.domain.Compra;
  *
  * @author gabri
  */
-public class CompraDAO extends DAO{
-     public void agregarCompra(Compra compra) throws Exception {
+public class CompraDAO extends DAO {
+
+    public void agregarCompra(Compra compra) throws Exception {
         conectarDB();
         try {
             String query = "INSERT INTO Compra (fechaCompra, clienteID) VALUES (NOW(), ?)";
@@ -54,15 +56,22 @@ public class CompraDAO extends DAO{
         }
         return compras;
     }
-    
-    public boolean verificarSaldo(Cliente cliente, Double total){
+
+    public boolean verificarSaldo(Cliente cliente, Double total) {
+//        try {
+//            
         Double uno = cliente.getSaldo().doubleValue();
-        if (uno > total) {
-        return true;    
-        }else{
-            return false;
-        }
-        
-//       return cliente.getSaldo().compareTo(total) >=0;
+//        if (uno > total) {
+//        return true;    
+//        }else{
+//            return false;
+//        }
+//        
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null,"Aqui mali sal");
+//        }
+//        
+//        return false;
+        return uno > total;
     }
 }
